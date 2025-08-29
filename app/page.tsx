@@ -74,7 +74,6 @@ export default function Home() {
       descriptionKey: 'renamerAppDescription',
       tech: ['Python', 'CustomTkinter', 'PHP', 'NFePHP', 'XML'],
       github: 'https://github.com/Thucosta0/renamerAPP',
-      demo: '#  '
     },
     {
       title: 'FinancePRO',
