@@ -73,7 +73,7 @@ export default function Home() {
       title: 'renamerAPP',
       descriptionKey: 'renamerAppDescription',
       tech: ['Python', 'CustomTkinter', 'PHP', 'NFePHP', 'XML'],
-      github: 'https://github.com/Thucosta0/renamerAPP',
+      github: 'https://github.com/Thucosta0/renamerAPP'
     },
     {
       title: 'FinancePRO',
@@ -86,8 +86,7 @@ export default function Home() {
       title: 'XML Duplicates Cleaner',
       descriptionKey: 'xmlCleanerDescription',
       tech: ['Python', 'CustomTkinter', 'PyInstaller', 'Pillow'],
-      github: 'https://github.com/Thucosta0/exclusao-arquivos-xml-duplicados',
-      demo: '#'
+      github: 'https://github.com/Thucosta0/exclusao-arquivos-xml-duplicados'
     }
   ]
 
@@ -294,9 +293,11 @@ export default function Home() {
                     <a href={project.github} className="text-gray-300 hover:text-white transition-colors">
                       <Github size={20} />
                     </a>
-                    <a href={project.demo} className="text-gray-300 hover:text-white transition-colors">
-                      <ExternalLink size={20} />
-                    </a>
+                    {project.demo && project.demo !== '#' && (
+                      <a href={project.demo} className="text-gray-300 hover:text-white transition-colors">
+                        <ExternalLink size={20} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
