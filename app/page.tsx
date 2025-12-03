@@ -64,8 +64,8 @@ export default function Home() {
 
   const skills = [
     { nameKey: 'frontend', icon: Globe, techs: ['JavaScript', 'React', 'Next.js', 'CustomTkinter'] },
-    { nameKey: 'backend', icon: Code, techs: ['Node.js', 'Python', 'PySide6'] },
-    { nameKey: 'database', icon: Database, techs: ['MySQL', 'SAP', 'Power BI', 'Power Automate'] },
+    { nameKey: 'backend', icon: Code, techs: ['Node.js', 'Python', 'PHP'] },
+    { nameKey: 'database', icon: Database, techs: ['MySQL', 'SAP', 'Power BI', 'Power Automate', 'SQL Server'] },
   ]
 
   const projects = [
@@ -73,7 +73,7 @@ export default function Home() {
       title: 'renamerAPP',
       descriptionKey: 'renamerAppDescription',
       tech: ['Python', 'CustomTkinter', 'PHP', 'NFePHP', 'XML'],
-      github: 'https://github.com/Thucosta0/renamerAPP'
+      github: 'https://github.com/Thucosta0/renamerPRO'
     },
     {
       title: 'FinancePRO',
