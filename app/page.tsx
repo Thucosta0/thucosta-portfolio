@@ -1,16 +1,18 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Github, Linkedin, Mail, ExternalLink, Code, Database, Globe } from 'lucide-react'
+import { Github, Linkedin, Mail, ExternalLink, Code, Database, Globe, Home as HomeIcon, User, Folder, Award, FileText } from 'lucide-react'
 import Image from 'next/image'
 import emailjs from '@emailjs/browser'
 import { useLanguage } from './contexts/LanguageContext'
 import LanguageSelector from './components/LanguageSelector'
+import ThemeToggle from './components/ThemeToggle'
 
 export default function Home() {
   const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('home')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     setIsVisible(true)
     // Inicializar EmailJS
-    emailjs.init('3vF0FywGPnVml0a_e') // Chave pública do EmailJS
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!) 
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,8 +42,8 @@ export default function Home() {
 
     try {
       const result = await emailjs.send(
-         'service_fkz5r23', // ID do serviço
-         'template_rxd4lru', // ID do template
+         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -62,10 +64,16 @@ export default function Home() {
     }
   }
 
+  const handleNavClick = (section: string) => {
+    setActiveSection(section)
+    setIsMobileMenuOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const skills = [
     { nameKey: 'frontend', icon: Globe, techs: ['JavaScript', 'React', 'Next.js', 'CustomTkinter'] },
-    { nameKey: 'backend', icon: Code, techs: ['Node.js', 'Python', 'PHP'] },
-    { nameKey: 'database', icon: Database, techs: ['MySQL', 'SAP', 'Power BI', 'Power Automate', 'SQL Server'] },
+    { nameKey: 'backend', icon: Code, techs: ['Node.js', 'Python', 'PySide6', 'PHP'] },
+    { nameKey: 'database', icon: Database, techs: ['MySQL', 'SAP', 'Power BI', 'Power Automate', 'PostgreSQL', 'SQLite', 'SQL Server'] },
   ]
 
   const projects = [
@@ -73,47 +81,160 @@ export default function Home() {
       title: 'renamerAPP',
       descriptionKey: 'renamerAppDescription',
       tech: ['Python', 'CustomTkinter', 'PHP', 'NFePHP', 'XML'],
-      github: 'https://github.com/Thucosta0/renamerPRO'
+      github: 'https://github.com/Thucosta0/renamerPRO',
+      image: '/images/PreviewRenamerAPP.jpg'
     },
     {
       title: 'FinancePRO',
       descriptionKey: 'financeProDescription',
       tech: ['React', 'Next.js', 'Node.js', 'MySQL', 'Charts.js'],
       github: 'https://github.com/Thucosta0/financepro',
-      demo: 'https://financepro.dev.br/'
+      demo: 'https://financepro.dev.br/',
+      image: '/images/SystemFinancePro.jpg'
     },
     {
       title: 'XML Duplicates Cleaner',
       descriptionKey: 'xmlCleanerDescription',
       tech: ['Python', 'CustomTkinter', 'PyInstaller', 'Pillow'],
-      github: 'https://github.com/Thucosta0/exclusao-arquivos-xml-duplicados'
+      github: 'https://github.com/Thucosta0/exclusao-arquivos-xml-duplicados',
+      image: '/images/DeleteDuplicateXML.jpg'
+    }
+  ]
+
+  const certificates: { titleKey: string; issuer: string; date: string; pdf: string; image?: string }[] = [
+    {
+      titleKey: 'certFlask',
+      issuer: 'Alura',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/Arthur Costa Bleck Mascarenhas - Curso Flask_ crie uma webapp com Python - Alura.jpg',
+      pdf: '/images/Certificados/Arthur Costa Bleck Mascarenhas - Curso Flask_ crie uma webapp com Python - Alura.pdf'
+    },
+    {
+      titleKey: 'certDataViz',
+      issuer: 'Alura',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/Arthur Costa Bleck Mascarenhas - Curso Data Visualization_ criando gráficos com bibliotecas Python - Alura_page.jpg',
+      pdf: '/images/Certificados/Arthur Costa Bleck Mascarenhas - Curso Data Visualization_ criando gráficos com bibliotecas Python - Alura.pdf'
+    },
+    {
+      titleKey: 'certDatabricks',
+      issuer: 'Databricks',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/2308_3_1366646_1766876565_Databricks - Generic.jpg',
+      pdf: '/images/Certificados/2308_3_1366646_1766876565_Databricks - Generic.pdf'
+    },
+    {
+      titleKey: 'certLangChain',
+      issuer: 'Alura',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/Arthur Costa Bleck Mascarenhas - Curso LangChain e Python_ criando ferramentas com a OpenAI - Alura.jpg',
+      pdf: '/images/Certificados/Arthur Costa Bleck Mascarenhas - Curso LangChain e Python_ criando ferramentas com a OpenAI - Alura.pdf'
+    },
+    {
+      titleKey: 'certAzure',
+      issuer: 'Alura',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/Arthur Costa Bleck Mascarenhas - Curso Microsoft AZ-900 Azure Fundamentals - Alura.jpg',
+      pdf: '/images/Certificados/Arthur Costa Bleck Mascarenhas - Curso Microsoft AZ-900 Azure Fundamentals - Alura.pdf'
+    },
+    {
+      titleKey: 'certPowerAutomate',
+      issuer: 'Alura',
+      date: '2025',
+      image: '/images/Certificados/certificados em jpg/Arthur Costa Bleck Mascarenhas - Curso Power Automate_ automatize processos e tarefas repetitivas e rotineiras - Alura.jpg',
+      pdf: '/images/Certificados/Arthur Costa Bleck Mascarenhas - Curso Power Automate_ automatize processos e tarefas repetitivas e rotineiras - Alura.pdf'
     }
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Header */}
-      <header className="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col md:flex-row text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      {/* Sidebar Navigation (Desktop) */}
+      <aside className="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 p-6 z-50 transition-colors duration-300">
+        <div className="mb-12 cursor-pointer" onClick={() => handleNavClick('home')}>
+          <div className="relative w-40 h-16">
+            <Image
+              src="/images/Logo.png"
+              alt="Logo thucosta"
+              fill
+              className="object-contain object-left transition-all duration-300"
+              priority
+            />
+          </div>
+        </div>
+        
+        <nav className="flex-1 flex flex-col space-y-6">
+          <button 
+            onClick={() => handleNavClick('home')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'home' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <HomeIcon size={20} className={activeSection === 'home' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('home')}</span>
+          </button>
+          <button 
+            onClick={() => handleNavClick('about')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'about' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <User size={20} className={activeSection === 'about' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('about')}</span>
+          </button>
+          <button 
+            onClick={() => handleNavClick('skills')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'skills' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <Code size={20} className={activeSection === 'skills' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('skills')}</span>
+          </button>
+          <button 
+            onClick={() => handleNavClick('projects')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'projects' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <Folder size={20} className={activeSection === 'projects' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('projects')}</span>
+          </button>
+          <button 
+            onClick={() => handleNavClick('certificates')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'certificates' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <Award size={20} className={activeSection === 'certificates' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('certificates')}</span>
+          </button>
+          <button 
+            onClick={() => handleNavClick('contact')}
+            className={`flex items-center space-x-3 transition-colors group text-left ${activeSection === 'contact' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+          >
+            <Mail size={20} className={activeSection === 'contact' ? 'text-blue-600 dark:text-blue-400' : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'} />
+            <span className="font-medium">{t('contact')}</span>
+          </button>
+        </nav>
+
+        <div className="mt-auto pt-6 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
+          <LanguageSelector />
+          <ThemeToggle />
+        </div>
+      </aside>
+
+      {/* Mobile Header */}
+      <header className="md:hidden fixed top-0 w-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md z-50 border-b border-slate-200 dark:border-slate-700 transition-colors duration-300">
         <nav className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold gradient-text">{t('portfolio')}</div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-white hover:text-purple-400 transition-colors">{t('home')}</a>
-              <a href="#about" className="text-white hover:text-purple-400 transition-colors">{t('about')}</a>
-              <a href="#skills" className="text-white hover:text-purple-400 transition-colors">{t('skills')}</a>
-              <a href="#projects" className="text-white hover:text-purple-400 transition-colors">{t('projects')}</a>
-              <a href="#contact" className="text-white hover:text-purple-400 transition-colors">{t('contact')}</a>
-              <LanguageSelector />
+            <div className="cursor-pointer" onClick={() => handleNavClick('home')}>
+              <div className="relative w-32 h-10">
+                <Image
+                  src="/images/Logo.png"
+                  alt="Logo thucosta"
+                  fill
+                  className="object-contain object-left transition-all duration-300"
+                  priority
+                />
+              </div>
             </div>
             
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
+              <ThemeToggle />
               <LanguageSelector />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white hover:text-purple-400 transition-colors"
+                className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {isMobileMenuOpen ? (
@@ -128,265 +249,347 @@ export default function Home() {
           
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-white/10">
+            <div className="mt-4 pb-4 border-t border-slate-200 dark:border-slate-700">
               <div className="flex flex-col space-y-4 pt-4">
-                <a 
-                  href="#home" 
-                  className="text-white hover:text-purple-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <button 
+                  onClick={() => handleNavClick('home')}
+                  className={`text-left transition-colors ${activeSection === 'home' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
                 >
                   {t('home')}
-                </a>
-                <a 
-                  href="#about" 
-                  className="text-white hover:text-purple-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                </button>
+                <button 
+                  onClick={() => handleNavClick('about')}
+                  className={`text-left transition-colors ${activeSection === 'about' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
                 >
                   {t('about')}
-                </a>
-                <a 
-                  href="#skills" 
-                  className="text-white hover:text-purple-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                </button>
+                <button 
+                  onClick={() => handleNavClick('skills')}
+                  className={`text-left transition-colors ${activeSection === 'skills' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
                 >
                   {t('skills')}
-                </a>
-                <a 
-                  href="#projects" 
-                  className="text-white hover:text-purple-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                </button>
+                <button 
+                  onClick={() => handleNavClick('projects')}
+                  className={`text-left transition-colors ${activeSection === 'projects' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
                 >
                   {t('projects')}
-                </a>
-                <a 
-                  href="#contact" 
-                  className="text-white hover:text-purple-400 transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                </button>
+                <button 
+                  onClick={() => handleNavClick('certificates')}
+                  className={`text-left transition-colors ${activeSection === 'certificates' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
+                >
+                  {t('certificates')}
+                </button>
+                <button 
+                  onClick={() => handleNavClick('contact')}
+                  className={`text-left transition-colors ${activeSection === 'contact' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400'}`}
                 >
                   {t('contact')}
-                </a>
+                </button>
               </div>
             </div>
           )}
         </nav>
       </header>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-20 min-h-screen flex items-center justify-center">
-        <div className={`container mx-auto px-6 text-center transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}>
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            {t('greeting')} <span className="gradient-text">{t('name')}</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            {t('description')}
-          </p>
-          <div className="flex justify-center space-x-6 mb-12">
-            <a href="https://github.com/Thucosta0" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400 transition-colors">
-              <Github size={32} />
-            </a>
-            <a href="https://www.linkedin.com/in/thucosta" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400 transition-colors">
-              <Linkedin size={32} />
-            </a>
-            <a href="mailto:arthurcos33@gmail.com" className="text-white hover:text-purple-400 transition-colors">
-              <Mail size={32} />
-            </a>
-          </div>
-          <a 
-            href="#about" 
-            className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
-          >
-            {t('cta')}
-          </a>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 bg-black/20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">{t('aboutTitle')}</h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="w-64 h-64 mx-auto bg-gradient-to-br from-purple-600 to-blue-600 rounded-full p-1">
-                  <div className="w-full h-full rounded-full overflow-hidden">
-                    <Image
-                      src="/images/profile.jpg"
-                      alt="Arthur Costa - Desenvolvedor"
-                      width={256}
-                      height={256}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      priority
-                    />
-                  </div>
-                </div>
+      {/* Main Content Area */}
+      <main className="flex-1 md:ml-64 min-h-screen">
+        {/* Hero Section */}
+        {activeSection === 'home' && (
+          <section className="pt-20 md:pt-0 min-h-screen flex items-center justify-center animate-fadeIn bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 transition-colors duration-300">
+            <div className={`container mx-auto px-6 text-center transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
+              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+                {t('greeting')} <span className="text-blue-600 dark:text-blue-500">{t('name')}</span>
+              </h1>
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl mx-auto">
+                {t('description')}
+              </p>
+              <div className="flex justify-center space-x-6 mb-12">
+                <a href="https://github.com/Thucosta0" target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                  <Github size={32} />
+                </a>
+                <a href="https://www.linkedin.com/in/thucosta" target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                  <Linkedin size={32} />
+                </a>
+                <a href="mailto:arthurcos33@gmail.com" className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                  <Mail size={32} />
+                </a>
               </div>
-              <div className="text-gray-300 space-y-6">
-                <p className="text-lg leading-relaxed">
-                  {t('aboutDescription1')}
-                </p>
-                <p className="text-lg leading-relaxed">
-                  {t('aboutDescription2')}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {['JavaScript', 'React', 'Next.js', 'Node.js', 'Python', 'MySQL', 'SAP', 'Power BI', 'Power Automate', 'CustomTkinter', 'PySide6', 'PHP'].map((tech, index) => (
-                    <span key={`about-tech-${index}`} className="bg-purple-600/20 text-purple-300 px-3 py-1 rounded-full text-sm">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <button 
+                onClick={() => handleNavClick('about')}
+                className="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-600/20"
+              >
+                {t('cta')}
+              </button>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )}
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">{t('skillsTitle')}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skills.map((skill, index) => {
-              const Icon = skill.icon
-              return (
-                <div key={skill.nameKey} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105">
-                  <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                      <Icon size={32} className="text-white" />
+        {/* About Section */}
+        {activeSection === 'about' && (
+          <section className="py-20 min-h-screen animate-fadeIn bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div className="container mx-auto px-6 pt-20 md:pt-0">
+              <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('aboutTitle')}</h2>
+              <div className="max-w-4xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                  <div>
+                    <div className="w-64 h-64 mx-auto bg-blue-600 rounded-full p-1 shadow-xl">
+                      <div className="w-full h-full rounded-full overflow-hidden">
+                        <Image
+                          src="/images/profile.jpg"
+                          alt="Arthur Costa - Desenvolvedor"
+                          width={256}
+                          height={256}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          priority
+                        />
+                      </div>
                     </div>
-                    <h3 className="text-xl font-semibold text-white mb-4">{t(skill.nameKey as any)}</h3>
-                    <div className="space-y-2">
-                      {skill.techs.map((tech, techIndex) => (
-                        <div key={`skill-${index}-tech-${techIndex}`} className="text-gray-300 text-sm">{tech}</div>
+                  </div>
+                  <div className="text-slate-700 dark:text-slate-300 space-y-6">
+                    <p className="text-lg leading-relaxed">
+                      {t('aboutDescription1')}
+                    </p>
+                    <p className="text-lg leading-relaxed">
+                      {t('aboutDescription2')}
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {['JavaScript', 'React', 'Next.js', 'Node.js', 'Python', 'MySQL', 'SAP', 'Power BI', 'Power Automate', 'CustomTkinter', 'PySide6', 'PHP'].map((tech, index) => (
+                        <span key={`about-tech-${index}`} className="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
+                          {tech}
+                        </span>
                       ))}
                     </div>
                   </div>
                 </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
+              </div>
+            </div>
+          </section>
+        )}
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-black/20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">{t('projectsTitle')}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-105">
-                <div className="h-48 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
-                  <Code size={64} className="text-white" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
-                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">{t(project.descriptionKey as any)}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech, techIndex) => (
-                      <span key={`project-${index}-tech-${techIndex}`} className="bg-purple-600/20 text-purple-300 px-2 py-1 rounded text-xs">
-                        {tech}
-                      </span>
-                    ))}
+        {/* Skills Section */}
+        {activeSection === 'skills' && (
+          <section className="py-20 min-h-screen animate-fadeIn bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+            <div className="container mx-auto px-6 pt-20 md:pt-0">
+              <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('skillsTitle')}</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {skills.map((skill, index) => {
+                  const Icon = skill.icon
+                  return (
+                    <div key={skill.nameKey} className="bg-white dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 shadow-sm hover:shadow-md">
+                      <div className="text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                          <Icon size={32} className="text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4">{t(skill.nameKey as any)}</h3>
+                        <div className="space-y-2">
+                          {skill.techs.map((tech, techIndex) => (
+                            <div key={`skill-${index}-tech-${techIndex}`} className="text-slate-600 dark:text-slate-400 text-sm">{tech}</div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Projects Section */}
+        {activeSection === 'projects' && (
+          <section className="py-20 min-h-screen animate-fadeIn bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div className="container mx-auto px-6 pt-20 md:pt-0">
+              <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('projectsTitle')}</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {projects.map((project, index) => (
+                  <div key={index} className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 group shadow-sm hover:shadow-md">
+                    <div className="h-48 relative overflow-hidden">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                      ) : (
+                        <div className="h-full bg-blue-600 flex items-center justify-center">
+                          <Code size={64} className="text-white" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">{project.title}</h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">{t(project.descriptionKey as any)}</p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tech.map((tech, techIndex) => (
+                          <span key={`project-${index}-tech-${techIndex}`} className="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200 px-2 py-1 rounded text-xs font-medium">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex space-x-4">
+                        <a href={project.github} className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                          <Github size={20} />
+                        </a>
+                        {project.demo && project.demo !== '#' && (
+                          <a href={project.demo} className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                            <ExternalLink size={20} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex space-x-4">
-                    <a href={project.github} className="text-gray-300 hover:text-white transition-colors">
-                      <Github size={20} />
-                    </a>
-                    {project.demo && project.demo !== '#' && (
-                      <a href={project.demo} className="text-gray-300 hover:text-white transition-colors">
-                        <ExternalLink size={20} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Certificates Section */}
+        {activeSection === 'certificates' && (
+          <section className="py-20 min-h-screen animate-fadeIn bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+            <div className="container mx-auto px-6 pt-20 md:pt-0">
+              <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('certificatesTitle')}</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {certificates.map((cert, index) => (
+                  <div key={index} className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 group shadow-sm hover:shadow-md">
+                    <div className="h-48 relative overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
+                      {cert.image ? (
+                        <Image
+                          src={cert.image}
+                          alt={t(cert.titleKey as any)}
+                          fill
+                          className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                        />
+                      ) : (
+                        <div className="relative w-full h-full">
+                          <object
+                            data={`${cert.pdf}#toolbar=0&navpanes=0&scrollbar=0`}
+                            type="application/pdf"
+                            className="w-full h-full object-cover pointer-events-none"
+                          >
+                            <div className="w-full h-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
+                              <Award size={64} className="text-blue-300 dark:text-blue-400" />
+                            </div>
+                          </object>
+                          {/* Overlay transparente para permitir o hover no card sem interferir no PDF */}
+                          <div className="absolute inset-0 bg-transparent" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-blue-600 dark:text-blue-400 text-sm font-semibold">{cert.issuer}</span>
+                        <span className="text-slate-500 text-xs">{cert.date}</span>
+                      </div>
+                      <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 line-clamp-2">{t(cert.titleKey as any)}</h3>
+                      
+                      <a 
+                        href={cert.pdf} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-2 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/link"
+                      >
+                        <FileText size={18} />
+                        <span className="text-sm group-hover/link:underline">{t('viewCertificate')}</span>
+                        <ExternalLink size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
                       </a>
-                    )}
+                    </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Contact Section */}
+        {activeSection === 'contact' && (
+          <section className="py-20 min-h-screen animate-fadeIn bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div className="container mx-auto px-6 pt-20 md:pt-0">
+              <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('contactTitle')}</h2>
+              <div className="max-w-2xl mx-auto">
+                <div className="bg-white dark:bg-slate-800 rounded-xl p-8 border border-slate-200 dark:border-slate-700 shadow-sm">
+                  {submitStatus === 'success' && (
+                    <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-green-700 dark:text-green-300 text-center">
+                      {t('successMessage')}
+                    </div>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300 text-center">
+                      {t('errorMessage')}
+                    </div>
+                  )}
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block text-slate-700 dark:text-slate-300 mb-2 font-medium">{t('nameLabel')}</label>
+                      <input 
+                        type="text" 
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        placeholder={t('namePlaceholder')}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-slate-700 dark:text-slate-300 mb-2 font-medium">{t('emailLabel')}</label>
+                      <input 
+                        type="email" 
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                        placeholder={t('emailPlaceholder')}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-slate-700 dark:text-slate-300 mb-2 font-medium">{t('messageLabel')}</label>
+                      <textarea 
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        rows={5}
+                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-none transition-all"
+                        placeholder={t('messagePlaceholder')}
+                      ></textarea>
+                    </div>
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 transform ${
+                        isSubmitting 
+                          ? 'bg-slate-400 dark:bg-slate-600 cursor-not-allowed' 
+                          : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 shadow-lg shadow-blue-600/20'
+                      }`}
+                    >
+                      {isSubmitting ? t('sending') : t('sendButton')}
+                    </button>
+                  </form>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">{t('contactTitle')}</h2>
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10">
-              {submitStatus === 'success' && (
-                <div className="mb-6 p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center">
-                  {t('successMessage')}
-                </div>
-              )}
-              {submitStatus === 'error' && (
-                <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-center">
-                  {t('errorMessage')}
-                </div>
-              )}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-white mb-2">{t('nameLabel')}</label>
-                  <input 
-                    type="text" 
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500"
-                    placeholder={t('namePlaceholder')}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-white mb-2">{t('emailLabel')}</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500"
-                    placeholder={t('emailPlaceholder')}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-white mb-2">{t('messageLabel')}</label>
-                  <textarea 
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 resize-none"
-                    placeholder={t('messagePlaceholder')}
-                  ></textarea>
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 transform ${
-                    isSubmitting 
-                      ? 'bg-gray-600 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-700 hover:to-blue-700 hover:scale-105'
-                  }`}
-                >
-                  {isSubmitting ? t('sending') : t('sendButton')}
-                </button>
-              </form>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )}
 
-      {/* Footer */}
-      <footer className="py-8 bg-black/40 border-t border-white/10">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-gray-400">
-            {t('footerText')}
-          </p>
-        </div>
-      </footer>
-    </main>
+        {/* Footer */}
+        <footer className="py-8 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors duration-300">
+          <div className="container mx-auto px-6 text-center">
+            <p className="text-slate-500 text-sm">
+              {t('footerText')}
+            </p>
+          </div>
+        </footer>
+      </main>
+    </div>
   )
 }

@@ -1,7 +1,7 @@
 export const translations = {
   pt: {
     // Header
-    portfolio: 'Portfólio',
+    portfolio: 'thucosta Dev',
     home: 'Início',
     about: 'Sobre',
     skills: 'Skills',
@@ -31,6 +31,17 @@ export const translations = {
     financeProDescription: 'Plataforma completa de gestão financeira pessoal com controle de cartões, transações, relatórios visuais e orçamentos. Interface moderna e dados criptografados.',
     xmlCleanerDescription: 'Aplicativo desktop para identificação e exclusão inteligente de arquivos XML duplicados baseado em sufixos personalizados. Interface profissional com logos institucionais.',
     
+    // Certificates Section
+    certificates: 'Certificados',
+    certificatesTitle: 'Meus Certificados',
+    certFlask: 'Curso Flask: Crie uma webapp com Python',
+    certDataViz: 'Curso Data Visualization: Criando gráficos com bibliotecas Python',
+    certDatabricks: 'Databricks - Generic',
+    certLangChain: 'Curso LangChain e Python: Criando ferramentas com a OpenAI',
+    certAzure: 'Curso Microsoft AZ-900: Azure Fundamentals',
+    certPowerAutomate: 'Curso Power Automate: Automatize processos e tarefas',
+    viewCertificate: 'Visualizar Certificado',
+
     // Contact Section
     contactTitle: 'Entre em Contato',
     nameLabel: 'Nome',
@@ -45,12 +56,12 @@ export const translations = {
     errorMessage: '❌ Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente.',
     
     // Footer
-    footerText: '© 2025 Thucosta. Desenvolvido com Next.js e Tailwind CSS.'
+    footerText: 'thucosta © 2025 All rights reserved.'
   },
   
   en: {
     // Header
-    portfolio: 'Portfolio',
+    portfolio: 'thucosta Dev',
     home: 'Home',
     about: 'About',
     skills: 'Skills',
@@ -80,6 +91,17 @@ export const translations = {
     financeProDescription: 'Complete personal financial management platform with card control, transactions, visual reports and budgets. Modern interface and encrypted data.',
     xmlCleanerDescription: 'Desktop application for intelligent identification and deletion of duplicate XML files based on custom suffixes. Professional interface with institutional logos.',
     
+    // Certificates Section
+    certificates: 'Certificates',
+    certificatesTitle: 'My Certificates',
+    certFlask: 'Flask Course: Create a webapp with Python',
+    certDataViz: 'Data Visualization Course: Creating charts with Python libraries',
+    certDatabricks: 'Databricks - Generic',
+    certLangChain: 'LangChain and Python Course: Creating tools with OpenAI',
+    certAzure: 'Microsoft AZ-900 Course: Azure Fundamentals',
+    certPowerAutomate: 'Power Automate Course: Automate processes and tasks',
+    viewCertificate: 'View Certificate',
+
     // Contact Section
     contactTitle: 'Get In Touch',
     nameLabel: 'Name',
@@ -94,7 +116,7 @@ export const translations = {
     errorMessage: '❌ Error sending message. Please try again or contact me directly.',
     
     // Footer
-    footerText: '© 2025 Thucosta. Built with Next.js and Tailwind CSS.'
+    footerText: 'thucosta © 2025 All rights reserved.'
   }
 }
 

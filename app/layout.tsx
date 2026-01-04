@@ -2,16 +2,18 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
+
 export const metadata: Metadata = {
-  title: 'Meu Portfólio | Desenvolvedor Full Stack',
+  title: 'Portfólio thucosta | Dev Full Stack',
   description: 'Portfólio profissional de desenvolvedor full stack especializado em tecnologias modernas.',
   keywords: 'desenvolvedor, full stack, react, next.js, typescript, javascript',
-  authors: [{ name: 'Seu Nome' }],
+  authors: [{ name: 'Arthur Costa' }],
   openGraph: {
-    title: 'Meu Portfólio | Desenvolvedor Full Stack',
+    title: 'Portfólio thucosta | Dev Full Stack',
     description: 'Portfólio profissional de desenvolvedor full stack especializado em tecnologias modernas.',
     type: 'website',
   },
@@ -25,9 +27,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
