@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export const metadata: Metadata = {
-  title: 'Portfólio thucosta | Dev Full Stack',
-  description: 'Portfólio profissional de desenvolvedor full stack especializado em tecnologias modernas.',
-  keywords: 'desenvolvedor, full stack, react, next.js, typescript, javascript',
+  title: 'thucosta | Dev Full Stack - Sistemas Eficientes & Automação',
+  description: 'Desenvolvedor Full Stack especializado na criação de sistemas eficientes, automação e plataformas de alta conversão para a área da saúde e negócios locais.',
+  keywords: 'desenvolvedor, full stack, react, next.js, automação, saúde, clínicas, negócios locais, conversão',
   authors: [{ name: 'Arthur Costa' }],
   openGraph: {
-    title: 'Portfólio thucosta | Dev Full Stack',
-    description: 'Portfólio profissional de desenvolvedor full stack especializado em tecnologias modernas.',
+    title: 'thucosta | Dev Full Stack - Sistemas Eficientes & Automação',
+    description: 'Desenvolvedor Full Stack especializado na criação de sistemas eficientes, automação e plataformas de alta conversão para a área da saúde e negócios locais.',
     type: 'website',
   },
 }

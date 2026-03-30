@@ -1,4 +1,4 @@
-'use client'
+ 'use client'
 
 import { useState, useEffect } from 'react'
 import { Github, Linkedin, Mail, ExternalLink, Code, Database, Globe, Home as HomeIcon, User, Folder, Award, FileText } from 'lucide-react'
@@ -78,11 +78,24 @@ export default function Home() {
 
   const projects = [
     {
+      titleKey: 'projectClinicTitle',
+      descriptionKey: 'projectClinicDescription',
+      tech: ['React', 'Next.js', 'Tailwind CSS', 'SEO'],
+      demo: 'https://jbintt.com.br', // Using a placeholder or leave without link
+      highlight: true,
+      title: '',
+      github: '',
+      image: ''
+    },
+    {
       title: 'renamerAPP',
       descriptionKey: 'renamerAppDescription',
       tech: ['Python', 'CustomTkinter', 'PHP', 'NFePHP', 'XML'],
       github: 'https://github.com/Thucosta0/renamerPRO',
-      image: '/images/PreviewRenamerAPP.jpg'
+      image: '/images/PreviewRenamerAPP.jpg',
+      demo: '',
+      highlight: false,
+      titleKey: ''
     },
     {
       title: 'FinancePRO',
@@ -90,14 +103,19 @@ export default function Home() {
       tech: ['React', 'Next.js', 'Node.js', 'MySQL', 'Charts.js'],
       github: 'https://github.com/Thucosta0/financepro',
       demo: 'https://financepro.dev.br/',
-      image: '/images/SystemFinancePro.jpg'
+      image: '/images/SystemFinancePro.jpg',
+      highlight: false,
+      titleKey: ''
     },
     {
       title: 'XML Duplicates Cleaner',
       descriptionKey: 'xmlCleanerDescription',
       tech: ['Python', 'CustomTkinter', 'PyInstaller', 'Pillow'],
       github: 'https://github.com/Thucosta0/exclusao-arquivos-xml-duplicados',
-      image: '/images/DeleteDuplicateXML.jpg'
+      image: '/images/DeleteDuplicateXML.jpg',
+      demo: '',
+      highlight: false,
+      titleKey: ''
     }
   ]
 
@@ -404,37 +422,49 @@ export default function Home() {
           <section className="py-20 min-h-screen animate-fadeIn bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
             <div className="container mx-auto px-6 pt-20 md:pt-0">
               <h2 className="text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{t('projectsTitle')}</h2>
+              
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project, index) => (
-                  <div key={index} className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-105 group shadow-sm hover:shadow-md">
-                    <div className="h-48 relative overflow-hidden">
+                  <article key={index} className={`bg-white dark:bg-slate-800 rounded-xl overflow-hidden border ${project.highlight ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-700'} hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] group shadow-sm hover:shadow-md flex flex-col`}>
+                    <div className="relative overflow-hidden h-48">
                       {project.image ? (
                         <Image
                           src={project.image}
-                          alt={project.title}
+                          alt={(project as any).titleKey ? t((project as any).titleKey) : ((project as any).title || '')}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                       ) : (
-                        <div className="h-full bg-blue-600 flex items-center justify-center">
-                          <Code size={64} className="text-white" />
+                        <div className="h-full w-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                          <Code size={64} className="text-white opacity-50" />
                         </div>
                       )}
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">{project.title}</h3>
-                      <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">{t(project.descriptionKey as any)}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="p-6 flex flex-col flex-1">
+                      {project.highlight && (
+                        <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold rounded-full mb-4 w-max">
+                          {t('highlightTag' as any) || 'Destaque'}
+                        </span>
+                      )}
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-3 text-xl">
+                        {project.titleKey ? t(project.titleKey as any) : project.title}
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed text-sm">
+                        {t(project.descriptionKey as any)}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-6 mt-auto">
                         {project.tech.map((tech, techIndex) => (
-                          <span key={`project-${index}-tech-${techIndex}`} className="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-200 px-2 py-1 rounded text-xs font-medium">
+                          <span key={`project-${index}-tech-${techIndex}`} className="bg-blue-50 dark:bg-slate-700 text-blue-700 dark:text-blue-300 px-2 py-1 rounded text-xs font-medium border border-blue-100 dark:border-slate-600">
                             {tech}
                           </span>
                         ))}
                       </div>
                       <div className="flex space-x-4">
-                        <a href={project.github} className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
-                          <Github size={20} />
-                        </a>
+                        {project.github && (
+                          <a href={project.github} className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
+                            <Github size={20} />
+                          </a>
+                        )}
                         {project.demo && project.demo !== '#' && (
                           <a href={project.demo} className="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" target="_blank" rel="noopener noreferrer">
                             <ExternalLink size={20} />
@@ -442,7 +472,7 @@ export default function Home() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>

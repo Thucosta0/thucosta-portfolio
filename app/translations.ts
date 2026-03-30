@@ -11,7 +11,7 @@ export const translations = {
     // Hero Section
     greeting: 'Prazer, eu sou',
     name: 'Arthur!',
-    description: 'Desenvolvedor focado em back-end com experiência em automação e soluções corporativas. Apaixonado por criar sistemas eficientes que resolvem problemas reais.',
+    description: 'Desenvolvedor Full Stack. Crio desde sistemas de automação corporativa até plataformas web de alta conversão e soluções de agendamento para a área da saúde e negócios locais. Sistemas eficientes que resolvem problemas reais.',
     cta: 'Conheça meu trabalho',
     
     // About Section
@@ -27,6 +27,9 @@ export const translations = {
     
     // Projects Section
     projectsTitle: 'Meus Projetos',
+    highlightTag: 'Destaque',
+    projectClinicTitle: 'Clínica JBINTT (Dra. Joyce Brandão)',
+    projectClinicDescription: 'Desenvolvimento de infraestrutura web completa e Link na Bio de alta performance, focados na otimização da experiência do paciente e aumento na conversão de agendamentos.',
     renamerAppDescription: 'Solução corporativa para processamento de documentos fiscais eletrônicos que automatiza a conversão de XMLs em DANFEs padronizados. Sistema com processamento paralelo multithread (mais de 1000 documentos simultâneos), renomeação inteligente baseada em chaves NFe, interface profissional em CustomTkinter e redução de 95% no tempo de processamento manual. Inclui validação automática, logs detalhados e conformidade regulatória.',
     financeProDescription: 'Plataforma completa de gestão financeira pessoal com controle de cartões, transações, relatórios visuais e orçamentos. Interface moderna e dados criptografados.',
     xmlCleanerDescription: 'Aplicativo desktop para identificação e exclusão inteligente de arquivos XML duplicados baseado em sufixos personalizados. Interface profissional com logos institucionais.',
@@ -71,7 +74,7 @@ export const translations = {
     // Hero Section
     greeting: 'Nice to meet you, I am',
     name: 'Arthur!',
-    description: 'Back-end focused developer with experience in automation and corporate solutions. Passionate about creating efficient systems that solve real problems.',
+    description: 'Full Stack Developer. I build everything from corporate automation systems to high-conversion web platforms and scheduling solutions for healthcare and local businesses. Efficient systems that solve real problems.',
     cta: 'Check out my work',
     
     // About Section
@@ -87,6 +90,9 @@ export const translations = {
     
     // Projects Section
     projectsTitle: 'My Projects',
+    highlightTag: 'Highlight',
+    projectClinicTitle: 'Clínica JBINTT (Dra. Joyce Brandão)',
+    projectClinicDescription: 'Complete web infrastructure and high-performance Bio Link development, focused on optimizing the patient experience and increasing appointment conversions.',
     renamerAppDescription: 'Corporate solution for electronic fiscal document processing that automates XML to DANFE conversion with standardized layout. Features multithread parallel processing (over 1000 simultaneous documents), intelligent renaming based on NFe keys, professional CustomTkinter interface and 95% reduction in manual processing time. Includes automatic validation, detailed logs and regulatory compliance.',
     financeProDescription: 'Complete personal financial management platform with card control, transactions, visual reports and budgets. Modern interface and encrypted data.',
     xmlCleanerDescription: 'Desktop application for intelligent identification and deletion of duplicate XML files based on custom suffixes. Professional interface with institutional logos.',

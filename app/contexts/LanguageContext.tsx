@@ -33,6 +33,22 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Salvar idioma no localStorage quando mudar
     localStorage.setItem('language', language)
+
+    // Atualizar meta tags e title dinamicamente para SEO/i18n
+    const title = language === 'pt' 
+      ? 'thucosta | Dev Full Stack - Sistemas Eficientes & Automação'
+      : 'thucosta | Full Stack Dev - Efficient Systems & Automation';
+      
+    const description = language === 'pt'
+      ? 'Desenvolvedor Full Stack especializado na criação de sistemas eficientes, automação e plataformas de alta conversão para a área da saúde e negócios locais.'
+      : 'Full Stack Developer specialized in creating efficient systems, automation, and high-conversion platforms for healthcare and local businesses.';
+
+    document.title = title;
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    }
   }, [language])
 
   const t = (key: TranslationKey): string => {
