@@ -59,7 +59,7 @@ export const translations = {
     errorMessage: '❌ Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente.',
     
     // Footer
-    footerText: 'thucosta © 2025 All rights reserved.'
+    footerText: 'thucosta © 2026 All rights reserved.'
   },
   
   en: {
@@ -122,7 +122,7 @@ export const translations = {
     errorMessage: '❌ Error sending message. Please try again or contact me directly.',
     
     // Footer
-    footerText: 'thucosta © 2025 All rights reserved.'
+    footerText: 'thucosta © 2026 All rights reserved.'
   }
 }
 
