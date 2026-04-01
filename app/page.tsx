@@ -426,22 +426,22 @@ export default function Home() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects.map((project, index) => (
                   <article key={index} className={`bg-white dark:bg-slate-800 rounded-xl overflow-hidden border ${project.highlight ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-slate-200 dark:border-slate-700'} hover:border-blue-500 transition-all duration-300 hover:transform hover:scale-[1.02] group shadow-sm hover:shadow-md flex flex-col`}>
-                    <div className={`relative overflow-hidden ${project.highlight ? 'h-56 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800' : 'h-48'}`}>
-                      {project.image ? (
-                        <div className="w-full h-full relative">
-                          <Image
-                            src={project.image}
-                            alt={(project as any).titleKey ? t((project as any).titleKey) : ((project as any).title || '')}
-                            fill
-                            className={`${project.highlight ? 'object-contain object-center scale-[1.3] group-hover:scale-[1.4] origin-top' : 'object-cover group-hover:scale-110'} transition-transform duration-500 ease-out`}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            priority={project.highlight}
-                          />
-                          {project.highlight && (
-                            <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent dark:from-slate-800/40" />
-                          )}
-                        </div>
-                      ) : (
+                    <div className={`relative overflow-hidden ${project.highlight ? 'h-64 md:h-72 bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800' : 'h-48'}`}>
+                        {project.image ? (
+                          <div className="w-full h-full relative">
+                            <Image
+                              src={project.image}
+                              alt={(project as any).titleKey ? t((project as any).titleKey) : ((project as any).title || '')}
+                              fill
+                              className={`${project.highlight ? 'object-cover object-top group-hover:scale-105' : 'object-cover group-hover:scale-110'} transition-transform duration-500 ease-out`}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              priority={project.highlight}
+                            />
+                            {project.highlight && (
+                              <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent dark:from-slate-800/60" />
+                            )}
+                          </div>
+                        ) : (
                         <div className="h-full w-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
                           <Code size={64} className="text-white opacity-50" />
                         </div>
